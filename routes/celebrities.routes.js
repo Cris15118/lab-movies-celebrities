@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Celebrity = require("../models/Celebrity.model.js")
 const Movie = require("../models/Movie.model.js")
-// GET "/celebrities/create	" => renderiza un formulario para crear la celebridad
+// GET "/celebrities/create	" => renderiza un formulario para crear la celebrity
 
 router.get("/create", (req, res, next)=>{
     Celebrity.find()
@@ -17,7 +17,7 @@ router.get("/create", (req, res, next)=>{
 })
 
 
-//POST "/celebrities/create"=> envía los datos del formulario a la ruta para crear la celebridad y guardarla en la DB
+//POST "/celebrities/create"=> envía los datos del formulario a la ruta para crear la celebrity y la guarda en la DB
 router.post("/create", (req, res, next)=>{
     console.log(req.body)
     Celebrity.create({

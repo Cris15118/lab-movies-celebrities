@@ -1,3 +1,26 @@
 <div>
     <h3>editar peliculas</h3>
+    <form action="/movies/:id/delete" method="post">
+<label for="title">Titulo</label>
+<input type="text" name="title">
+<br>
+<label for="genre">Genero</label>
+<input type="text" name="genre">
+<br>
+<label for="plot">Trama</label>
+<input type="text" name="plot">
+<br>
+<label for="cast">Elenco</label>
+    <select name="cast" >
+    {{#each this.allCelebrities}}
+
+      <option value="{{this._id}}">{{this.name}}</option>
+
+      {{/each}}
+    </select>
+    <br>
+    <button>Actualizar</button>
+    <br>
+    <button>Borrar</button>
+    </form>
 </div>

@@ -17,7 +17,7 @@ router.get("/create", (req, res, next)=>{
 })
 
 
-//POST "/movies/create"=> envia los datos del formularo a la ruta para crear la pelicula y guardarla en la DB
+//POST "/movies/create"=> envia los datos del formulario a la ruta para crear la pelicula y la guarda en la DB
 
 router.post("/create", (req, res, next)=>{
     console.log(req.body)
@@ -47,15 +47,44 @@ router.get("/", (req, res, next)=>{
         next(err)
     })
     })
-// GET "/movies/:id	"=> renderiza un formulario de edit (con los valores actuates del libro)
+// GET "/movies/:id	"=> renderiza un los detalles de movie
 router.get("/:id", (req, res, next)=>{
     Movie.findById(req.params.id)
     .populate("cast")
     .then((moviesDetails)=>{
         console.log(moviesDetails)
-        res.render("movies/movie-details", {
+        res.render("movies/movie-details.hbs", {
             moviesDetails: moviesDetails
         })
+    })
+    .catch((err)=>{
+        next(err)
+    })
+})
+//GET "/movies/:id"=> renderiza un formulario
+router.get("/:id", (req, res, next)=>{
+    Movie.findById(req.params.id)
+    .populate("cast")
+    .then((moviesDetails)=>{
+        res.render("movie/edit-movie.hbs", {
+            moviesDetails: moviesDetails
+        })
+    })
+    .catch((err)=>{
+        next(err)
+    })
+})
+
+// POST "/movies/:id" => recibe la info a editar del libro y lo actualizará eb ka DB
+router.post("/:id", (req, res, next)=>{
+    Movie.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        genre: req.body.genre,
+        plot: req.body.plot,
+        cast: req.body.cast
+    })
+    .then(()=>{
+        res.redirect("/movies")
     })
     .catch((err)=>{
         next(err)
@@ -69,8 +98,8 @@ router.post("/:Id/delete", (req, res, next) => {
     .then((response) => {
       res.redirect("/book")
     })
-    .catch((error) => {
-      next(error)
+    .catch((err) => {
+      next(err)
     })
   
   })
