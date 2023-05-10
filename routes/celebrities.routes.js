@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Celebrity = require("../models/Celebrity.model.js")
 const Movie = require("../models/Movie.model.js")
+
 // GET "/celebrities/create	" => renderiza un formulario para crear la celebrity
 
 router.get("/create", (req, res, next)=>{

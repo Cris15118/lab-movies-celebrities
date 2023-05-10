@@ -48,7 +48,7 @@ router.get("/", (req, res, next)=>{
     })
     })
 // GET "/movies/:id	"=> renderiza un los detalles de movie
-router.get("/:id", (req, res, next)=>{
+router.get("/:id/details", (req, res, next)=>{
     Movie.findById(req.params.id)
     .populate("cast")
     .then((moviesDetails)=>{
@@ -62,7 +62,7 @@ router.get("/:id", (req, res, next)=>{
     })
 })
 //GET "/movies/:id"=> renderiza un formulario
-router.get("/:id", (req, res, next)=>{
+router.get("/:id/edit", (req, res, next)=>{
     Movie.findById(req.params.id)
     .populate("cast")
     .then((moviesDetails)=>{
@@ -76,7 +76,7 @@ router.get("/:id", (req, res, next)=>{
 })
 
 // POST "/movies/:id" => recibe la info a editar del libro y lo actualizará eb ka DB
-router.post("/:id", (req, res, next)=>{
+router.post("/:id/edit", (req, res, next)=>{
     Movie.findByIdAndUpdate(req.params.id, {
         title: req.body.title,
         genre: req.body.genre,
@@ -91,12 +91,12 @@ router.post("/:id", (req, res, next)=>{
     })
 })
 //POST "/movies/:id/delete"=> borrar una movie
-router.post("/:Id/delete", (req, res, next) => {
+router.post("/:id/delete", (req, res, next) => {
 
     console.log(req.params)
-    Book.findByIdAndDelete(req.params.bookId)
+    Book.findByIdAndDelete(req.params.id)
     .then((response) => {
-      res.redirect("/book")
+      res.redirect("/movies")
     })
     .catch((err) => {
       next(err)
